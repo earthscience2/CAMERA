@@ -6,7 +6,7 @@ from datetime import datetime
 camera_port = 0
 
 # 이미지가 저장될 디렉터리
-save_dir = "img"
+save_dir = "/media/pi/CAMERA_SD"
 
 # 디렉토리가 존재하지 않으면 생성
 if not os.path.exists(save_dir):
