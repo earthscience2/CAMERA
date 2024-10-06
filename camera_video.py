@@ -1,6 +1,7 @@
 import cv2
 import os
 from datetime import datetime
+import threading
 
 # 카메라 장치 번호 설정 (하나의 카메라만 사용)
 camera_port = "/dev/v4l/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.2:1.0-video-index0"
