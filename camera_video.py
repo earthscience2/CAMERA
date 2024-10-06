@@ -12,9 +12,6 @@ save_dir = "/media/pi/CAMERA_SD"
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 
-# 종료 플래그 설정
-stop_threads = False
-
 # 영상을 촬영하는 함수
 def capture_video(camera_port):
     # VideoCapture 객체 생성
@@ -26,20 +23,17 @@ def capture_video(camera_port):
 
     # 카메라 해상도 및 MJPG 포맷 설정
     cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))  # MJPG 포맷
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)  # FHD 해상도 설정
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)  # 4K 해상도 설정
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160)
     cap.set(cv2.CAP_PROP_FPS, 30)  # 30 fps 설정
-    
-    actual_width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
-    actual_height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
-    actual_fps = cap.get(cv2.CAP_PROP_FPS)
-    print(f"실제 카메라 설정: {actual_width}x{actual_height}, {actual_fps} fps")
+
+    print(f"카메라 {camera_port}가 정상적으로 열렸습니다. 해상도: 3840x2160, 30fps")
 
     # 비디오 코덱 설정 및 비디오 파일 저장 (mp4v 코덱 사용)
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # mp4v 코덱 사용
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     video_filename = f"{save_dir}/camera_{timestamp}.mp4"  # MP4 형식으로 저장
-    out = cv2.VideoWriter(video_filename, fourcc, 30.0, (3840, 2160))  # FHD 해상도 설정
+    out = cv2.VideoWriter(video_filename, fourcc, 30.0, (3840, 2160))  # 4K 해상도 설정
 
     frame_count = 0  # 프레임 카운트
     last_check_time = datetime.now()  # 마지막 상태 확인 시간
@@ -62,8 +56,8 @@ def capture_video(camera_port):
             print(f"카메라: {elapsed_time:.2f}초 동안 {frame_count}개의 프레임이 저장되었습니다.")
             last_check_time = current_time  # 상태 확인 시간 갱신
 
-        # 'q' 키를 누르면 종료
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        # '9' 키를 누르면 종료
+        if cv2.waitKey(1) & 0xFF == ord('9'):
             break
 
     # 카메라와 비디오 저장 객체 닫기
