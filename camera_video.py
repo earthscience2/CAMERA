@@ -46,6 +46,7 @@ def capture_video(camera_port, camera_id):
 
     frame_count = 0  # 프레임 카운트
     last_check_time = datetime.now()  # 마지막 상태 확인 시간
+    start_time = datetime.now()  # 시작 시간
 
     while not stop_threads:
         ret, frame = cap.read()
@@ -59,8 +60,9 @@ def capture_video(camera_port, camera_id):
 
         # 10초마다 로그 출력
         current_time = datetime.now()
+        elapsed_time = (current_time - start_time).total_seconds()
         if current_time - last_check_time >= timedelta(seconds=10):
-            print(f"카메라 {camera_id}: 10초 동안 {frame_count}개의 프레임이 저장되었습니다.")
+            print(f"카메라 {camera_id}: {elapsed_time:.2f}초 동안 {frame_count}개의 프레임이 저장되었습니다.")
             last_check_time = current_time  # 상태 확인 시간 갱신
 
     # 카메라와 비디오 저장 객체 닫기
