@@ -1,6 +1,6 @@
 import cv2
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 import threading
 
 # 카메라별 장치 번호 설정 (각각 다른 경로)
@@ -44,19 +44,29 @@ def capture_video(camera_port, camera_id):
     video_filename = f"{save_dir}/camera_{camera_id}_{timestamp}.mp4"  # MP4 형식으로 저장
     out = cv2.VideoWriter(video_filename, fourcc, 30.0, (3840, 2160))  # 4K 해상도 설정
 
+    frame_count = 0  # 프레임 카운트
+    last_check_time = datetime.now()  # 마지막 상태 확인 시간
+
     while not stop_threads:
         ret, frame = cap.read()
         if not ret:
             print(f"카메라 {camera_id}에서 프레임을 가져올 수 없습니다.")
             break
-        
+
         # 비디오 파일로 저장
         out.write(frame)
+        frame_count += 1  # 프레임 수 증가
+
+        # 10초마다 로그 출력
+        current_time = datetime.now()
+        if current_time - last_check_time >= timedelta(seconds=10):
+            print(f"카메라 {camera_id}: 10초 동안 {frame_count}개의 프레임이 저장되었습니다.")
+            last_check_time = current_time  # 상태 확인 시간 갱신
 
     # 카메라와 비디오 저장 객체 닫기
     cap.release()
     out.release()
-    print(f"카메라 {camera_id}에서 비디오 저장 완료: {video_filename}")
+    print(f"카메라 {camera_id}에서 비디오 저장 완료: {video_filename}. 총 {frame_count} 프레임이 저장되었습니다.")
 
 # 각 카메라를 쓰레드로 실행
 threads = []
