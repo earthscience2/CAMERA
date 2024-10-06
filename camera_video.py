@@ -31,8 +31,8 @@ def capture_video(camera_port, camera_id):
 
     # 카메라 해상도 및 MJPG 포맷 설정
     cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))  # MJPG 포맷
-    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)  # 4K 해상도 설정
-    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160)
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)  # 4K 해상도 설정
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
     cap.set(cv2.CAP_PROP_FPS, 30)  # 30 fps 설정
 
     print(f"카메라 {camera_port}가 정상적으로 열렸습니다. 해상도: 3840x2160, 30fps")
