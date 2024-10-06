@@ -35,13 +35,13 @@ def capture_video(camera_port, camera_id):
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
     cap.set(cv2.CAP_PROP_FPS, 30)  # 30 fps 설정
 
-    print(f"카메라 {camera_port}가 정상적으로 열렸습니다. 해상도: 3840x2160, 30fps")
+    print(f"카메라 {camera_port}가 정상적으로 열렸습니다. 해상도: 1920x1080, 30fps")
 
     # 비디오 코덱 설정 및 비디오 파일 저장 (mp4v 코덱 사용)
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # mp4v 코덱 사용
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     video_filename = f"{save_dir}/camera_{camera_id}_{timestamp}.mp4"  # MP4 형식으로 저장
-    out = cv2.VideoWriter(video_filename, fourcc, 30.0, (3840, 2160))  # 4K 해상도 설정
+    out = cv2.VideoWriter(video_filename, fourcc, 30.0, (1920, 1080))  # 4K 해상도 설정
 
     frame_count = 0  # 프레임 카운트
     last_check_time = datetime.now()  # 마지막 상태 확인 시간
