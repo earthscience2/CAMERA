@@ -17,8 +17,12 @@ save_dir = "/media/pi/CAMERA_SD"
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 
+# 종료 플래그 설정
+stop_threads = False
+
 # 카메라별로 영상을 촬영하는 함수
 def capture_video(camera_port, camera_id):
+    global stop_threads
     # VideoCapture 객체 생성
     cap = cv2.VideoCapture(camera_port)
 
@@ -32,9 +36,9 @@ def capture_video(camera_port, camera_id):
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     video_filename = f"{save_dir}/camera_{camera_id}_{timestamp}.avi"
-    out = cv2.VideoWriter(video_filename, fourcc, 30.0, (640, 480))
+    out = cv2.VideoWriter(video_filename, fourcc, 30.0, (3840, 2160))  # 4K 해상도 설정
 
-    while True:
+    while not stop_threads:
         ret, frame = cap.read()
         if not ret:
             print(f"카메라 {camera_id}에서 프레임을 가져올 수 없습니다.")
@@ -42,10 +46,6 @@ def capture_video(camera_port, camera_id):
         
         # 비디오 파일로 저장
         out.write(frame)
-
-        # 'q' 키를 누르면 종료
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
 
     # 카메라와 비디오 저장 객체 닫기
     cap.release()
@@ -58,6 +58,16 @@ for i, camera_port in enumerate(camera_ports):
     thread = threading.Thread(target=capture_video, args=(camera_port, i+1))
     threads.append(thread)
     thread.start()
+
+try:
+    # 메인 스레드는 사용자로부터 종료 신호를 기다림
+    while True:
+        if input("종료하려면 숫자 '9'를 입력하세요: ").strip() == '9':
+            stop_threads = True
+            break
+except KeyboardInterrupt:
+    print("사용자가 프로그램을 중단했습니다.")
+    stop_threads = True
 
 # 모든 쓰레드가 종료될 때까지 대기
 for thread in threads:
