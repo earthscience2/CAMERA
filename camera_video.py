@@ -35,7 +35,7 @@ def capture_video(camera_port, camera_id):
     # 비디오 코덱 설정 및 비디오 파일 저장
     fourcc = cv2.VideoWriter_fourcc(*'XVID')
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    video_filename = f"{save_dir}/camera_{camera_id}_{timestamp}.avi"
+    video_filename = f"{save_dir}/camera_{camera_id}_{timestamp}.mp4"
     out = cv2.VideoWriter(video_filename, fourcc, 30.0, (3840, 2160))  # 4K 해상도 설정
 
     while not stop_threads:
