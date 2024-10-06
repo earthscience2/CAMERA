@@ -29,8 +29,11 @@ def capture_video(camera_port):
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 3840)  # FHD 해상도 설정
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160)
     cap.set(cv2.CAP_PROP_FPS, 30)  # 30 fps 설정
-
-    print(f"카메라 {camera_port}가 정상적으로 열렸습니다. 해상도: 3840x2160, 30fps")
+    
+    actual_width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
+    actual_height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
+    actual_fps = cap.get(cv2.CAP_PROP_FPS)
+    print(f"실제 카메라 설정: {actual_width}x{actual_height}, {actual_fps} fps")
 
     # 비디오 코덱 설정 및 비디오 파일 저장 (mp4v 코덱 사용)
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # mp4v 코덱 사용
