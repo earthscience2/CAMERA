@@ -3,7 +3,7 @@ import os
 from datetime import datetime
 
 # 카메라 장치 번호 설정 (기본적으로 첫 번째 카메라를 0번으로 설정)
-camera_port = "/dev/v4l/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.1:1.0-video-index1"
+camera_port = "/dev/v4l/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.1:1.0-video-index0"
 
 # 이미지가 저장될 디렉터리
 save_dir = "/media/pi/CAMERA_SD"
@@ -37,7 +37,7 @@ else:
     cap.release()
     
 # 카메라 장치 번호 설정 (기본적으로 첫 번째 카메라를 0번으로 설정)
-camera_port = "/dev/v4l/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.2:1.0-video-index1"
+camera_port = "/dev/v4l/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.2:1.0-video-index0"
 
 # 이미지가 저장될 디렉터리
 save_dir = "/media/pi/CAMERA_SD"
@@ -71,7 +71,7 @@ else:
     cap.release()
     
 # 카메라 장치 번호 설정 (기본적으로 첫 번째 카메라를 0번으로 설정)
-camera_port = "/dev/v4l/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.3:1.0-video-index1"
+camera_port = "/dev/v4l/by-path/platform-fd500000.pcie-pci-0000:01:00.0-usb-0:1.3:1.0-video-index0"
 
 # 이미지가 저장될 디렉터리
 save_dir = "/media/pi/CAMERA_SD"
