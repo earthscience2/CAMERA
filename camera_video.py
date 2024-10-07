@@ -15,10 +15,10 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 2160)
 cap.set(cv2.CAP_PROP_FPS, 30)  # 30fps 설정
 
 # 비디오 코덱 설정 (MJPEG)
-fourcc = cv2.VideoWriter_fourcc(*'MJPG')
+fourcc = cv2.VideoWriter_fourcc(*'X264')
 
 # 비디오 파일 저장 설정
-out = cv2.VideoWriter('output.mjpeg', fourcc, 30.0, (3840, 2160))
+out = cv2.VideoWriter('output.mp4', fourcc, 25.0, (3840, 2160))
 
 while cap.isOpened():
     ret, frame = cap.read()
